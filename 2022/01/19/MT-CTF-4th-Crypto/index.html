@@ -19,19 +19,17 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="第四届 美团MTCTF Write-up (Crypto)">
+    <meta name="description" content="第四届 美团MTCTF Write-up (Crypto)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MT-CTF 4th Crypto">
 <meta property="og:url" content="http://example.com/2022/01/19/MT-CTF-4th-Crypto/index.html">
 <meta property="og:site_name" content="sCh3n&#39;s Blog">
-<meta property="og:description" content="第四届 美团MTCTF Write-up (Crypto)">
+<meta property="og:description" content="第四届 美团MTCTF Write-up (Crypto)">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s4.ax1x.com/2021/12/12/oHhKAS.png">
 <meta property="article:published_time" content="2022-01-19T05:28:27.000Z">
 <meta property="article:modified_time" content="2023-02-23T04:44:15.056Z">
 <meta property="article:author" content="sCh3n">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s4.ax1x.com/2021/12/12/oHhKAS.png">
 
 
 <link rel="canonical" href="http://example.com/2022/01/19/MT-CTF-4th-Crypto/">
@@ -119,7 +117,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E5%B1%8A-%E7%BE%8E%E5%9B%A2MTCTF-Write-up-Crypto"><span class="nav-number">1.</span> <span class="nav-text">第四届 美团MTCTF Write-up (Crypto)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">Symbol</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hamburgerRSA"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">hamburgerRSA</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E5%B1%8A-%E7%BE%8E%E5%9B%A2mtctf-write-up-crypto"><span class="nav-number">1.</span> <span class="nav-text">第四届 美团MTCTF Write-up
+(Crypto)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#symbol"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">Symbol</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hamburgerrsa"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">hamburgerRSA</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -227,27 +226,34 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="第四届-美团MTCTF-Write-up-Crypto"><a href="#第四届-美团MTCTF-Write-up-Crypto" class="headerlink" title="第四届 美团MTCTF Write-up (Crypto)"></a>第四届 美团MTCTF Write-up (Crypto)</h1><span id="more"></span>
-
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>比赛的时候做了两个Crypto，一个Misc，队友们做了两个Pwn，一个RE。<br>总共241个得分队伍，最终排第36名，离进决赛还是有挺大距离的。<br>这里，把我做的两道Crypto题总结一下。</p>
-<h4 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h4><p>考察的是<code>LaTeX</code>的字符</p>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/oHhKAS"><img src="https://s4.ax1x.com/2021/12/12/oHhKAS.png" alt="oHhKAS.png"></a></p>
+        <h1 id="第四届-美团mtctf-write-up-crypto">第四届 美团MTCTF Write-up
+(Crypto)</h1>
+<span id="more"></span>
+<h4 id="前言">前言</h4>
+<p>比赛的时候做了两个Crypto，一个Misc，队友们做了两个Pwn，一个RE。
+总共241个得分队伍，最终排第36名，离进决赛还是有挺大距离的。
+这里，把我做的两道Crypto题总结一下。</p>
+<h4 id="symbol">Symbol</h4>
+<p>考察的是<code>LaTeX</code>的字符</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/oHhKAS"><img
+src="https://s4.ax1x.com/2021/12/12/oHhKAS.png"
+alt="oHhKAS.png" /></a></p>
 <p>一堆不认识的字符，凭着对希腊字母的了解勉强得知其模式为根据其发音得到对应明文</p>
 <p>找了很多东西发现这些都是<code>LaTeX</code>的字符于是很快得到flag{fun_latex_math}</p>
-<p>但是<code>md5</code>之后提交错误，注意到字母里有大小写，于是把<code>L、T、X、M</code>大写 –&gt;flag{fun_LaTeX_Math}</p>
+<p>但是<code>md5</code>之后提交错误，注意到字母里有大小写，于是把<code>L、T、X、M</code>大写
+--&gt;flag{fun_LaTeX_Math}</p>
 <p><code>md5</code>后提交正确，多一嘴，<code>md5</code>默认32位小写<del>（不用像我一样把4种都试一遍</del></p>
-<h4 id="hamburgerRSA"><a href="#hamburgerRSA" class="headerlink" title="hamburgerRSA"></a>hamburgerRSA</h4><p>题目：</p>
+<h4 id="hamburgerrsa">hamburgerRSA</h4>
+<p>题目：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import *</span><br><span class="line"></span><br><span class="line">flag = open(&#x27;flag.txt&#x27;).read()</span><br><span class="line">nbit = 64</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    p, q = getPrime(nbit), getPrime(nbit)</span><br><span class="line">    PP = int(str(p) + str(p) + str(q) + str(q))</span><br><span class="line">    QQ = int(str(q) + str(q) + str(p) + str(p))</span><br><span class="line">    if isPrime(PP) and isPrime(QQ):</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">n = PP * QQ</span><br><span class="line">m = bytes_to_long(flag.encode())</span><br><span class="line">c = pow(m, 65537, n)</span><br><span class="line">print(&#x27;n =&#x27;, n)</span><br><span class="line">print(&#x27;c =&#x27;, c)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p><code>p,q</code>中一个为19位一个为20位（因为如果都是20或19位的话PP和QQ肯定不是质数）</p>
 <p>显然<code>N</code>的前19位就是<code>p*q</code>的前19位，<code>N</code>的后19位就是<code>p*q</code>的后19位</p>
 <p>这样，<code>p*q</code>的位数是39或40位，只有一位不知道，只要爆破这一位再用<code>sage</code>的<code>factor</code>分解就可以了</p>
 <p>以下脚本在<code>sage</code>中运行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">N=177269125756508652546242326065138402971542751112423326033880862868822164234452280738170245589798474033047460920552550018968571267978283756742722231922451193</span><br><span class="line"></span><br><span class="line">low=str(N)[-19:]</span><br><span class="line">high=str(N)[:19]</span><br><span class="line"></span><br><span class="line">for i in [&#x27;&#x27;]+[str(i) for i in range(10)]:</span><br><span class="line">    n=int(high+i+low)</span><br><span class="line">    f=factor(n)</span><br><span class="line">    if len(f)==2:</span><br><span class="line">        print(f)</span><br></pre></td></tr></table></figure>
-
-<p>得到<code>p，q</code>为 9788542938580474429 ， 18109858317913867117</p>
+<p>得到<code>p，q</code>为 9788542938580474429 ，
+18109858317913867117</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import*</span><br><span class="line">PP=978854293858047442997885429385804744291810985831791386711718109858317913867117</span><br><span class="line">QQ=181098583179138671171810985831791386711797885429385804744299788542938580474429</span><br><span class="line">phi=(PP-1)*(QQ-1)</span><br><span class="line">n=PP*QQ</span><br><span class="line">c=47718022601324543399078395957095083753201631332808949406927091589044837556469300807728484035581447960954603540348152501053100067139486887367207461593404096</span><br><span class="line">d=inverse(65537,phi)</span><br><span class="line">m=pow(c,d,n)</span><br><span class="line">print(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
-
 <p>得到flag</p>
 
     </div>
