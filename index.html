@@ -308,7 +308,7 @@ src="\pictures\Tryhackme\picklerick\image-20240316092845073.png" /></p>
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2024-03-17 11:43:12 / 修改时间：11:59:52" itemprop="dateCreated datePublished" datetime="2024-03-17T11:43:12+08:00">2024-03-17</time>
+      <time title="创建时间：2024-03-17 11:43:12 / 修改时间：12:49:25" itemprop="dateCreated datePublished" datetime="2024-03-17T11:43:12+08:00">2024-03-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -346,6 +346,50 @@ src="pictures/Blog%20-Try%20Hack%20ME靶机/image-20240317115806113.png"
 alt="image-20240317115806113" />
 <figcaption aria-hidden="true">image-20240317115806113</figcaption>
 </figure>
+<p>看到SMB服务开着，smbmap看一眼</p>
+<figure>
+<img
+src="pictures/Blog%20-Try%20Hack%20ME靶机/image-20240317120934571.png"
+alt="image-20240317120934571" />
+<figcaption aria-hidden="true">image-20240317120934571</figcaption>
+</figure>
+<p>有一个开着，连进去看下文件</p>
+<figure>
+<img
+src="pictures/Blog%20-Try%20Hack%20ME靶机/image-20240317120857334.png"
+alt="image-20240317120857334" />
+<figcaption aria-hidden="true">image-20240317120857334</figcaption>
+</figure>
+<p>check-this.jpeg，扫出来个网址没啥用</p>
+<figure>
+<img src="pictures/Blog%20-Try%20Hack%20ME靶机/check-this.jpeg"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>Alice-White-Rabbit.jpg，有个隐写，没有密码，没啥用。。</p>
+<figure>
+<img
+src="pictures/Blog%20-Try%20Hack%20ME靶机/image-20240317121358546.png"
+alt="image-20240317121358546" />
+<figcaption aria-hidden="true">image-20240317121358546</figcaption>
+</figure>
+<p>tswift.mp4，I Know You were Trouble好评，但是看不出啥东西</p>
+<p>访问网站，找到登陆页</p>
+<p>http://blog.thm/wp-login.php</p>
+<p>找到两个author地址</p>
+<p>http://blog.thm/author/kwheel/</p>
+<p>http://blog.thm/author/bjoel/</p>
+<p>用户名应该是kwheel和bjoel，尝试后确实存在</p>
+<figure>
+<img
+src="pictures/Blog%20-Try%20Hack%20ME靶机/image-20240317123437315.png"
+alt="image-20240317123437315" />
+<figcaption aria-hidden="true">image-20240317123437315</figcaption>
+</figure>
+<p>wpscan爆破密码试试</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url <span class="string">&quot;http://blog.thm/wp-login.php&quot;</span> --usernames kwheel --passwords /usr/share/wordlists/rockyou.txt</span><br><span class="line">wpscan --url <span class="string">&quot;http://blog.thm/wp-login.php&quot;</span> --usernames bjoel --passwords /usr/share/wordlists/rockyou.txt</span><br></pre></td></tr></table></figure>
+<p>爆了8分钟出来一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[!] Valid Combinations Found:</span><br><span class="line"> | Username: kwheel, Password: cutiepie1</span><br></pre></td></tr></table></figure>
 
       
     </div>
